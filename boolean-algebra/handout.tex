@@ -1,6 +1,10 @@
-\documentclass[handout,fleqn]{beamer}
+\documentclass[handout,fleqn, t]{beamer}
+
+\usepackage{color, colortbl}
+\definecolor{Gray}{gray}{0.9}
+
 \usepackage{pgfpages}
-\pgfpagesuselayout{2 on 1}[letterpaper,border shrink=5mm]
+\pgfpagesuselayout{2 on 1}[letterpaper,border shrink=5mm]
 \pgfpageslogicalpageoptions{1}{border code=\pgfusepath{stroke}}
 \pgfpageslogicalpageoptions{2}{border code=\pgfusepath{stroke}}
 \pgfpageslogicalpageoptions{3}{border code=\pgfusepath{stroke}}
@@ -8,7 +12,7 @@
 
 \title{Boolean Algebra}
 \subtitle{GBW ACSL - Contest \#3}
-\author{Clayton O'Neill}
+\author{Clayton O'Neill --- clayton@oneill.net}
 \date{2014-2015}
 
 \setbeamertemplate{footline}[frame number]
@@ -17,39 +21,97 @@
 
 \frame{\titlepage}
 
-%\section[Outline]{}
-%\frame{\tableofcontents}
-
-%\section{Introduction}
-%\subsection{Overview of the Beamer Class}
 \frame {
   \frametitle{What is Boolean Algebra?}
-  \itemize{
+  \begin{itemize}
     \item Boolean algebra is algebra using only two numbers: 0 and 1
+    \item Closely related to Digital Electronics in contest \#4
     \item It uses the logic operations we've already learned: AND, OR, XOR, NOT
-    \item AND is represented by multiplication (A * B) or AB
-    \item OR is represented by addition: A + B
     \item NOT is represented with a line over the value: \( \overline{A} \)
+    \item AND is represented by multiplication (A * B) or AB
     \item XOR is represented with \( \oplus{} \) : \( A \oplus{} B \)
+    \item OR is represented by addition: A + B
+    \item Order of operation NOT first then AND, XOR and OR.
     \item 0 is considered FALSE, 1 is considered TRUE
-  }
+  \end{itemize}
 }
+
+\frame {
+  \frametitle{Truth Tables for Boolean Operations}
+
+  \begin{tabular}{ c c | c | c | c | c}
+    A & B & \(\overline{A}\) & A + B & A * B & \(A \oplus{} B \) \\
+    \hline
+    0 & 0 & 1 & 0 & 0 & 0 \\
+    0 & 1 & 1 & 1 & 0 & 1 \\
+    1 & 0 & 0 & 1 & 0 & 1 \\
+    1 & 1 & 0 & 1 & 1 & 0
+  \end{tabular}
+
+  \vspace{1em}
+  Remember:
+  \begin{itemize}
+    \item + is short for OR
+    \item * is the short way of saying AND
+    \item \(\oplus{}\) is short for Exclusive-OR (XOR)
+    \item \(\overline{A}\) is short for NOT A
+  \end{itemize}
+  \vspace{1em}
+  Don't confuse + and * in boolean algebra with normal math.
+  Remember that \(1 + 1 = 1\) in boolean algebra because it's
+  another way of writing 1 OR 1 = 1.  You need to memorize
+  truth tables to solve these.
+}
+
+\frame {
+  \frametitle{Translating Boolean Algebra to Logic}
+
+  Here are a few examples of how you can mentally translate boolean algebra
+  expressions into logic statements you may be more used to.
+
+
+  \vspace{1em}
+  A+B = A OR B
+
+  \vspace{1em}
+  AB = A * B = A AND B
+
+  \vspace{1em}
+  \(A \oplus{} B = \) A XOR B
+
+  \vspace{1em}
+  \(A \overline{B} = A * \overline{B} \) = A AND (NOT B)
+
+  \vspace{1em}
+  \( (\overline{A+B})BC \)
+  \( = (\overline{A+B}) * B * C \)
+  = NOT(A OR B) AND B AND C
+
+
+}
+
 \frame {
   \frametitle{Boolean Algebra Identities: The Rules}
-  Boolean algebra has rules you can apply to solve or simplify equations.  The numbers of the identities shown here are from the ACSL materials.
-  
-  
+
+  Boolean algebra has rules you can apply to solve or simplify equations.  You
+  will need to memorize these and practice using them.  The numbers of the
+  identities shown here are from the ACSL materials.
+
+  \vspace{1em}
   \begin{enumerate}
     \item Communicative Property --- Order of OR (+) doesn't matter:
-      \[ A+B = B+A \] 
+      \[ A+B = B+A \]
     \item Associative Property --- Order of AND (*) doesn't matter:
       \[ A*B = B*A \]
     \item Distributive Property:
       \[ A * (B + C) = A * B + A * C \]
   \end{enumerate}
 }
+
 \frame {
-  \frametitle{De Morgan's Law\footnote[1]{They are named after Augustus De Morgan, a 19th-century British mathematician}}
+  \frametitle{De Morgan's Law\footnote[1]{They are named after Augustus De
+  Morgan, a 19th-century British mathematician}}
+
   \begin{enumerate}
     \setcounter{enumi}{3}
     \item Negated OR of two items is the same as AND of the negatives.
@@ -90,16 +152,147 @@
   \frametitle{Identities: Part V}
   \begin{enumerate}
     \setcounter{enumi}{10}
-    \item \( A + \overline{A} * B = A + B \)    
+    \item \( A + \overline{A} * B = A + B \)
     \item \((A + B) * (A + C) = A + B * C \)
     \item \( (A + B) * (C + D) = A*C + A*D + B*C + B*D \)
-    
+
       This is an expanded form of the more general Distributive Property in \#3
     \item \(A * (A + B) = A \)
-    
-      If A is true then it doesn't matter if B is true or false, and if A is false, then the first A will force the AND to be false.
+
+      If A is true then it doesn't matter if B is true or false, and if A is
+      false, then the first A will force the AND to be false.
     \item \( A \oplus{} B = A * \overline{B} + \overline{A} * B \)
     \item \( \overline{A \oplus{} B} = \overline{A} \oplus{} B = A \oplus{} \overline{B} \)
-  \end{enumerate}  
+  \end{enumerate}
+}
+\frame {
+  \frametitle{What do you need to know?}
+  There are mainly two types of problems on the ACSL practice tests:
+
+  \begin{itemize}
+    \item Simplify Expression \\
+    These require you to use the identities above to make the problem as simple
+    as possible.  You will need to memorize most or all of the identities and
+    know how to apply them.
+
+    \item Simplify Expression and Solve \\
+     These are the same as above, require you also find all the values that can
+     make the expression true but can be easier in some cases.  You can stop
+     simplifying when you feel the problem can be solved with a truth table,
+     meaning you can get away not knowing the identities quite as well for
+     these problems.
+   \end{itemize}
+
+  These aren't the the only problem types, just the most common on past tests.
+}
+\frame[allowframebreaks] {
+  \frametitle{Simplify This Expression Example}
+  \enumerate {
+    \item Simplify:
+      \[ (\overline{A} * B + A*B)(\overline{A*B}) \]
+    \item Apply Distributive Property (\#3) to move B outside of first parentheses:
+      \[ B * (\overline{A} + A) * (\overline{AB}) \]
+    \item Apply De Morgan's Law (\#5) to the second parentheses:
+      \[ B * (\overline{A} + A) * (\overline{A} + \overline{B}) \]
+    \item Apply identity \#8 to simplify first parentheses:
+      \[ B * 1 * (\overline{A} + \overline{B}) \]
+    \item Apply identity \#7 to remove 1:
+      \[ B * (\overline{A} + \overline{B}) \]
+    \item Apply Distributive Property (\#3) to spread B:
+      \[ B * \overline{A} + B * \overline{B} \]
+    \item Apply identity \#8 to convert second half to zero:
+      \[ B * \overline{A} + 0 \]
+    \item Apply identity \#6 to get rid of zero:
+      \[ B * \overline{A} \]
+  }
+}
+
+\frame[allowframebreaks] {
+  \frametitle { Simplify and Solve Example}
+  \begin{enumerate}
+    \item Simplify first:
+      \[ AB(\overline{A} + C) + \overline{A}(B + C) \]
+    \item Apply Distributive identity (\#3) to both sides:
+      \[ AB\overline{A} + ABC + \overline{A}B + \overline{A}C \]
+    \item Apply identity \#8 to convert \(A\overline{A}\) to zero:
+      \[ 0 * B + ABC + \overline{A}B + \overline{A}C \]
+    \item Apply identity \#6 to remove \( 0 * B \):
+      \[ ABC + \overline{A}B + \overline{A}C \]
+  \end{enumerate}
+
+  At this point no further simplification is possible, so we must figure out
+  what values for A, B and C will make the expression true.  We want this truth
+  table to contain each of the parts of the expression that we'll solve for:
+}
+
+\frame {
+  \frametitle{Solving the Equation I}
+  To figure out what values will make the expression true, we make a truth
+  table that shows every value for A, B and C.
+
+  \vspace{1em}
+  \begin{tabular}{ c c c }
+    A & B & C \\
+    \hline
+    0 & 0 & 0 \\
+    0 & 0 & 1 \\
+    0 & 1 & 0 \\
+    0 & 1 & 1 \\
+    1 & 0 & 0 \\
+    1 & 0 & 1 \\
+    1 & 1 & 0 \\
+    1 & 1 & 1
+  \end{tabular}
+}
+
+\frame {
+  \frametitle{Solving the Equation II}
+  Then we want to add columns for each of the parts of the expression, and the
+  expression itself, and then solve each part:
+
+  \vspace{1em}
+  \begin{tabular}{ c c c| c c c | c }
+    A & B & C & ABC & \(\overline{A}B\) & \(\overline{A}C\) & \(ABC + \overline{A}B + \overline{A}C \)\\
+    \hline
+    0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    \rowcolor{Gray}
+    0 & 0 & 1 & 0 & 0 & 1 & 1 \\
+    \rowcolor{Gray}
+    0 & 1 & 0 & 0 & 1 & 0 & 1 \\
+    \rowcolor{Gray}
+    0 & 1 & 1 & 0 & 1 & 1 & 1 \\
+    1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    1 & 0 & 1 & 0 & 0 & 0 & 0 \\
+    1 & 1 & 0 & 0 & 0 & 0 & 0 \\
+    \rowcolor{Gray}
+    1 & 1 & 1 & 1 & 0 & 0 & 1
+  \end{tabular}
+\vspace{1em}
+
+  The rows in gray are the ones the expression is true for.  ACSL expects you
+  to provide them in alphabetic order as a sequence of numbers.  For example:
+  (0, 0, 1), (0, 1, 0), (0, 1, 1), and (1, 1 1).
+}
+
+\frame {
+  \frametitle{Tips and Tricks}
+  \itemize {
+    \item Be careful about NOT:
+      \[ \overline{A + B} \neq \overline{A} + \overline{B} \]
+      \[ \overline{A * B} \neq \overline{A} * \overline{B} \]
+    \item When simplifying look for opportunities to combine negated terms to
+      eliminate them.  (\( B * \overline{B} = 0\)).
+    \item Logical reasoning can save you a lot of time.  A truth table for
+      \(A(BC + AD)\) must show A always being true because A is being
+      ANDed with the larger expression
+
+    \item When working the problems, be \emph{very} careful about copying the
+      bars above expressions.
+    \item Remember that AND is implied sometimes.  For example \(AB(A + D) = A
+      * B * (A + D)\).
+    \item In ACSL examples the the Communicative Property is frequently used to
+      reorder the expressions.  For example, they may prefer
+      \(A\overline{B}C\) instead of \(CA\overline{B}\).
+  }
 }
 \end{document}
