@@ -1,0 +1,105 @@
+\documentclass[handout,fleqn]{beamer}
+\usepackage{pgfpages}
+\pgfpagesuselayout{2 on 1}[letterpaper,border shrink=5mm]
+\pgfpageslogicalpageoptions{1}{border code=\pgfusepath{stroke}}
+\pgfpageslogicalpageoptions{2}{border code=\pgfusepath{stroke}}
+\pgfpageslogicalpageoptions{3}{border code=\pgfusepath{stroke}}
+\pgfpageslogicalpageoptions{4}{border code=\pgfusepath{stroke}}
+
+\title{Boolean Algebra}
+\subtitle{GBW ACSL - Contest \#3}
+\author{Clayton O'Neill}
+\date{2014-2015}
+
+\setbeamertemplate{footline}[frame number]
+
+\begin{document}
+
+\frame{\titlepage}
+
+%\section[Outline]{}
+%\frame{\tableofcontents}
+
+%\section{Introduction}
+%\subsection{Overview of the Beamer Class}
+\frame {
+  \frametitle{What is Boolean Algebra?}
+  \itemize{
+    \item Boolean algebra is algebra using only two numbers: 0 and 1
+    \item It uses the logic operations we've already learned: AND, OR, XOR, NOT
+    \item AND is represented by multiplication (A * B) or AB
+    \item OR is represented by addition: A + B
+    \item NOT is represented with a line over the value: \( \overline{A} \)
+    \item XOR is represented with \( \oplus{} \) : \( A \oplus{} B \)
+    \item 0 is considered FALSE, 1 is considered TRUE
+  }
+}
+\frame {
+  \frametitle{Boolean Algebra Identities: The Rules}
+  Boolean algebra has rules you can apply to solve or simplify equations.  The numbers of the identities shown here are from the ACSL materials.
+  
+  
+  \begin{enumerate}
+    \item Communicative Property --- Order of OR (+) doesn't matter:
+      \[ A+B = B+A \] 
+    \item Associative Property --- Order of AND (*) doesn't matter:
+      \[ A*B = B*A \]
+    \item Distributive Property:
+      \[ A * (B + C) = A * B + A * C \]
+  \end{enumerate}
+}
+\frame {
+  \frametitle{De Morgan's Law\footnote[1]{They are named after Augustus De Morgan, a 19th-century British mathematician}}
+  \begin{enumerate}
+    \setcounter{enumi}{3}
+    \item Negated OR of two items is the same as AND of the negatives.
+      \[ \overline{A + B} = \overline{A} * \overline{B} \]
+    \item Negated AND of two items is the same as OR of the negatives.
+      \[ \overline{A * B} = \overline{A} + \overline{B} \]
+  \end{enumerate}
+}
+\frame {
+  \frametitle{The Basics - OR}
+  \begin{enumerate}
+    \setcounter{enumi}{5}
+    \item Value ORed with zero(FALSE) is itself.
+      \[ A + 0 = A \]
+    \item Value ORed with one(TRUE) is always one(TRUE).
+      \[ A + 1 = 1 \]
+    \item Value ORed with it's opposite is always one(TRUE).
+      \[ A + \overline{A} = 1 \]
+    \item Value ORed with itself is one(TRUE).
+      \[ A + A =  1 \]
+  \end{enumerate}
+}
+\frame {
+  \frametitle{The Basics - AND}
+  \begin{enumerate}
+    \setcounter{enumi}{5}
+    \item Value ANDed with zero(FALSE) is always zero(FALSE).
+      \[ A * 0 = 0 \]
+    \item Value ANDed with one(TRUE) is itself.
+      \[ A * 1 = A \]
+    \item Value ANDed with it's opposite is always zero(FALSE).
+      \[ A * \overline{A} = 0 \]
+    \item Value ANDed with itself is itself.
+      \[ A * A =  A \]
+  \end{enumerate}
+}
+\frame {
+  \frametitle{Identities: Part V}
+  \begin{enumerate}
+    \setcounter{enumi}{10}
+    \item \( A + \overline{A} * B = A + B \)    
+    \item \((A + B) * (A + C) = A + B * C \)
+    \item \( (A + B) * (C + D) = A*C + A*D + B*C + B*D \)
+    
+      This is an expanded form of the more general Distributive Property in \#3
+    \item \(A * (A + B) = A \)
+    
+      If A is true then it doesn't matter if B is true or false, and if A is false, then the first A will force the AND to be false.
+    \item \( A \oplus{} B = A * \overline{B} + \overline{A} * B \)
+    \item \( \overline{A \oplus{} B} = \overline{A} \oplus{} B = A \oplus{} \overline{B} \)
+  \end{enumerate}  
+}
+\end{document}
