@@ -31,7 +31,7 @@
     \item AND is represented by multiplication (A * B) or AB
     \item XOR is represented with \( \oplus{} \) : \( A \oplus{} B \)
     \item OR is represented by addition: A + B
-    \item Order of operation NOT first then AND, XOR and OR.
+    \item Order of operations: NOT first then AND, XOR and OR.
     \item 0 is considered FALSE, 1 is considered TRUE
   \end{itemize}
 }
@@ -85,7 +85,7 @@
   \vspace{1em}
   \( (\overline{A+B})BC \)
   \( = (\overline{A+B}) * B * C \)
-  = NOT(A OR B) AND B AND C
+  = (NOT(A OR B)) AND B AND C
 
 
 }
@@ -114,9 +114,9 @@
 
   \begin{enumerate}
     \setcounter{enumi}{3}
-    \item Negated OR of two items is the same as AND of the negatives.
+    \item Negated OR of two variables is the same as AND of the negative of each variable.
       \[ \overline{A + B} = \overline{A} * \overline{B} \]
-    \item Negated AND of two items is the same as OR of the negatives.
+    \item Negated AND of two variables is the same as OR of the negative of each variable.
       \[ \overline{A * B} = \overline{A} + \overline{B} \]
   \end{enumerate}
 }
@@ -171,16 +171,16 @@
 
   \begin{itemize}
     \item Simplify Expression \\
-    These require you to use the identities above to make the problem as simple
-    as possible.  You will need to memorize most or all of the identities and
-    know how to apply them.
+    These require you to use the identities to make the problem as simple
+    as possible.  You will need to memorize the identities and know how
+    to apply them.
 
     \item Simplify Expression and Solve \\
-     These are the same as above, require you also find all the values that can
-     make the expression true but can be easier in some cases.  You can stop
-     simplifying when you feel the problem can be solved with a truth table,
-     meaning you can get away not knowing the identities quite as well for
-     these problems.
+     These are the same as above, but require you to also find all the
+     combination of values for the variables that can make the expression true.
+     These can be easier, since you can stop simplifying when you feel
+     the problem can be solved with a truth table.  This means you can get
+     away not knowing the identities quite as well for these problems.
    \end{itemize}
 
   These aren't the the only problem types, just the most common on past tests.
@@ -276,23 +276,27 @@
 
 \frame {
   \frametitle{Tips and Tricks}
-  \itemize {
+  \begin{itemize}
     \item Be careful about NOT:
       \[ \overline{A + B} \neq \overline{A} + \overline{B} \]
       \[ \overline{A * B} \neq \overline{A} * \overline{B} \]
+
     \item When simplifying look for opportunities to combine negated terms to
       eliminate them.  (\( B * \overline{B} = 0\)).
-    \item Logical reasoning can save you a lot of time.  A truth table for
-      \(A(BC + AD)\) must show A always being true because A is being
-      ANDed with the larger expression
 
-    \item When working the problems, be \emph{very} careful about copying the
-      bars above expressions.
+    \item Logical reasoning can save you a lot of time. For \(A(BC + AD)\)
+      to be true, A must always be true since it is ANDed with the \((BC + AD)\).
+      If asked to identify the true values for A, B and C for that expression,
+      you can solve for just B and C since you know A must be true.
+
+    \item Be \emph{very} careful about copying the bars above expressions.
+
     \item Remember that AND is implied sometimes.  For example \(AB(A + D) = A
       * B * (A + D)\).
-    \item In ACSL examples the the Communicative Property is frequently used to
-      reorder the expressions.  For example, they may prefer
+
+    \item In the ACSL examples the the Communicative Property is frequently used to
+      sort the expressions.  For example:
       \(A\overline{B}C\) instead of \(CA\overline{B}\).
-  }
+  \end{itemize}
 }
 \end{document}
