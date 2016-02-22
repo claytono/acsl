@@ -1,0 +1,252 @@
+\documentclass[handout,fleqn, t]{beamer}
+
+\usepackage{caption}
+\captionsetup[figure]{name=}
+
+\usepackage{listings}
+\lstset{numbers=left,frame=single,rulesep=0em}
+
+\usepackage{pgfpages}
+\pgfpagesuselayout{2 on 1}[letterpaper,border shrink=5mm]
+\pgfpageslogicalpageoptions{1}{border code=\pgfusepath{stroke}}
+\pgfpageslogicalpageoptions{2}{border code=\pgfusepath{stroke}}
+\pgfpageslogicalpageoptions{3}{border code=\pgfusepath{stroke}}
+\pgfpageslogicalpageoptions{4}{border code=\pgfusepath{stroke}}
+
+\title{What Does This Program Do?\linebreak (Looping \& Arrays)}
+\subtitle{GBW ACSL - Contest \#3}
+\author{Clayton O'Neill --- clayton@oneill.net}
+\date{2014-2015}
+
+\setbeamertemplate{footline}[frame number]
+
+\setlength{\parskip}{1em plus 1pt minus 1pt}
+
+\begin{document}
+\frame{\titlepage}
+
+\begin{frame}[fragile]
+  \frametitle{How Do Loops Work?}
+  Loops in BASIC have the following form:
+
+  \begin{lstlisting}[gobble=4]
+    FOR X = 0 TO 30 STEP 10
+      PRINT X
+    NEXT X
+  \end{lstlisting}
+
+  This program will print 0, 10, 20, 30.  The loop starts on line 1.  The
+  \lstinline{FOR X} part specifies that X is the variable that will change
+  each time the loop is run.
+
+  The \lstinline{0 TO 30} part of line 1 sets the initial value of X when the
+  loop starts, and specifies when the loop will end.
+
+  The last part part of line 1, \lstinline{STEP 10}, specifies how much will be
+  added to X every time the loop ends.  The \lstinline{STEP} is optional and
+  defaults to 1.
+
+  Finally, on line 3 we see \lstinline{NEXT X}.  This marks the end of the loop
+  where X is the loop variable.  This is important for nested loops.
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Nested Loops}
+
+  This is an example an outer and inner loop, or \textit{nested} loops.
+
+  \begin{lstlisting}[gobble=4]
+    FOR X = 1 TO 3
+      FOR Y = 1 TO 3
+        PRINT X,Y
+      NEXT Y
+    NEXT X
+  \end{lstlisting}
+
+  The output will be:
+    \begin{lstlisting}[gobble=4]
+    1 1
+    1 2
+    1 3
+    2 1
+    ...
+    3 3
+    \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Backwards Loops}
+
+  The \lstinline{STEP} option can also be negative to loop backwards:
+
+  \begin{lstlisting}[gobble=4]
+    FOR X = 30 TO 0 STEP -10
+      PRINT X
+    NEXT X
+  \end{lstlisting}
+
+  This will print:
+  \begin{lstlisting}[gobble=4]
+    30
+    20
+    10
+    0
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Decimal Numbers as \lstinline{STEP}}
+
+  The \lstinline{STEP} can take non-whole, or decimal numbers as shown below:
+
+  \begin{lstlisting}[gobble=4]
+    FOR X = 30 TO 0 STEP -7.5
+      PRINT X
+    NEXT X
+  \end{lstlisting}
+
+  This will print:
+  \begin{lstlisting}[gobble=4]
+    30
+    20.5
+    11
+    1.5
+  \end{lstlisting}
+
+  How does the loop decide to end in this case?
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Technical Implementation}
+
+  When a For...Next loop starts, Visual Basic evaluates start, end, and step.
+  Visual Basic evaluates these values only at this time and then assigns start
+  to counter. Before the statement block runs, Visual Basic compares counter to
+  end. If counter is already larger than the end value (or smaller if step is
+  negative), the For loop ends and control passes to the statement that follows
+  the Next statement. Otherwise, the statement block runs.
+
+  Each time Visual Basic encounters the Next statement, it increments counter
+  by step and returns to the For statement. Again it compares counter to end,
+  and again it either runs the block or exits the loop, depending on the
+  result. This process continues until counter passes end or an Exit For
+  statement is encountered.
+
+  The loop doesn't stop until counter has passed
+  end...\footnote{https://msdn.microsoft.com/en-us/library/5z06z1kb.aspx}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{No Nothing Loops}
+
+  Loops can result in \textbf{nothing} being done!
+
+  \begin{lstlisting}[gobble=4]
+    FOR X = 30 TO 0
+      PRINT X
+    NEXT X
+  \end{lstlisting}
+
+  This will print out nothing, because X will be assigned 30, which is greater
+  than 0, so the loop doesn't even run once.
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Common Pattern: Checking If Evenly Divisible}
+
+  One pattern that is common in ACSL question is shown below:
+
+  \begin{lstlisting}[gobble=4]
+    FOR X = 1 TO 20
+      IF INT(X/2) = X/2 THEN PRINT X
+    NEXT X
+  \end{lstlisting}
+
+  This program prints all numbers between 1 and 20 that are divisible by two.
+  It does this by dividing the number by 2 and rounding it it towards zero,
+  then comparing that to just the number divided by 2.  If those are the same,
+  that means the number divided by two has no remainder.
+
+  For example, if X were 3, then the first part of the comparison on line 2
+  would be, 1, but the second part would be 1.5.  Those two are are not equal,
+  so the 3 isn't evenly divisible by 2.
+\end{frame}
+
+\frame {
+  \frametitle{What Does This Program Do: Arrays}
+  \begin{itemize}
+    \item Arrays are variables that hold more than one value.
+    \item Another word commonly used for arrays is \textit{matrix}.
+    \item One way to think about them is as a table like we saw with the
+      adjacency matrix.
+    \item In ACSL you will normally see arrays that either have one or two
+      \textit{dimensions}.
+    \item The number of dimensions is determines how many variables you use to
+      access the array.
+    \item One dimension arrays are accessed, or indexed, with one variable.
+    \item Two dimension arrays are accessed, or indexed, with two variables.
+    \item You'll commonly see arrays paired with loops.
+  \end{itemize}
+}
+
+\begin{frame}[fragile]
+  \frametitle{One Dimensional Array Example}
+
+  The example below initializes the array A using the \lstinline{READ} command
+  then counts all array elements that are greater than 2 and prints it out.
+
+  \begin{lstlisting}[gobble=4]
+    DATA 3, 3, 2, 1, 2, 4, 7
+    FOR X = 1 to 7
+      READ Y
+      A(X) = Y
+    NEXT X
+    C = 0
+    FOR X = 1 TO 7
+      IF A(X) > 2 C = C + 1
+    NEXT X
+    PRINT C
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Two Dimensional Array Example}
+
+  Assume that the array A has the values given in the table below.  What would
+  this program print?
+
+  \begin{lstlisting}[gobble=4]
+    FOR X = 1 TO 4
+      C = 0
+      FOR Y = 1 TO 3
+        IF INT(A(X,Y)/2) = A(X,Y)/2 THEN C = C + 1
+      NEXT Y
+      PRINT C
+    NEXT X
+  \end{lstlisting}
+  \begin{tabular}{|c|c|c|c|}
+    \hline 37 & 14 & 10 & 2 \\
+    \hline 2 & 3 & 11 & 6 \\
+    \hline 21 & 0 & 1 & 8 \\
+    \hline
+  \end{tabular}
+
+  Bottom left corner is 1,1 (21).
+\end{frame}
+
+\begin{frame}
+  \frametitle{Miscellanous Hints and Tips}
+  \begin{itemize}
+    \item In ACSL problems arrays are sometimes declared using the
+      \lstinline{DIM} declaration.  You can ignore these.  In ACSL BASIC, declaring arrays ahead of time isn't necessary.
+    \item ACSL array problems frequently take the form: Initialize array/Change
+      Array/Summarize Array.
+    \item When you are given a two dimensional array in a problem, be very
+      careful about where the two axes start.
+  \end{itemize}
+\end{frame}
+
+\end{document}
