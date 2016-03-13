@@ -1,0 +1,140 @@
+\documentclass[handout,fleqn, t]{beamer}
+
+\usepackage{caption}
+\captionsetup[figure]{name=}
+
+\usepackage{listings}
+\lstset{numbers=left,frame=single,rulesep=0em}
+
+\usepackage{pgfpages}
+\pgfpagesuselayout{2 on 1}[letterpaper,border shrink=5mm]
+\pgfpageslogicalpageoptions{1}{border code=\pgfusepath{stroke}}
+\pgfpageslogicalpageoptions{2}{border code=\pgfusepath{stroke}}
+\pgfpageslogicalpageoptions{3}{border code=\pgfusepath{stroke}}
+\pgfpageslogicalpageoptions{4}{border code=\pgfusepath{stroke}}
+
+\title{What Does This Program Do?\linebreak (Strings)}
+\subtitle{GBW ACSL - Contest \#4}
+\author{Clayton O'Neill --- clayton@oneill.net}
+\date{2015-2016}
+
+\setbeamertemplate{footline}[frame number]
+
+\setlength{\parskip}{1em plus 1pt minus 1pt}
+
+\begin{document}
+\frame{\titlepage}
+
+\begin{frame}
+  \frametitle{What Is A String?}
+  \begin{itemize}
+    \item A string is a sequence of characters
+    \item It is shown in the program inside "double quotation marks"
+    \item It can be stored in a variable just like a numeric value.
+    \item String variables end with a \lstinline{$} like \lstinline{A$}
+    \item There are functions to convert strings to and from numbers
+    \item There are functions to manipulate strings just like for numbers
+    \item String indexes start at 1, just like arrays
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{LEFT\$ and RIGHT\$ functions}
+  
+  \begin{itemize}
+    \item The \lstinline{LEFT$} function returns a specified number of characters from the beginning or left side of the string.
+    \item The \lstinline{RIGHT$} function returns a specified number of characters from the end or right side of the string.
+  \end{itemize}
+
+  \begin{lstlisting}[gobble=4]
+    A$ = "HELLO WORLD"
+    PRINT RIGHT$(A$, 5), LEFT$(A$, 5)
+  \end{lstlisting}
+  
+  This program will print "WORLD HELLO". 
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{MID\$ and LEN functions}
+  
+  \begin{itemize}
+    \item The \lstinline{MID$} function returns a specified number of characters from anywhere in the string.
+    \item The \lstinline{LEN} function returns the number of characters in the string.
+  \end{itemize}
+
+  \begin{lstlisting}[gobble=4]
+    INPUT A$
+    PRINT MID$(A$, 2, LEN(A$) - 2)
+  \end{lstlisting}
+  
+  This program will prompt for a string, then print it out without the first and last characters.  If you entered "HELLO WORLD" it would print "ELLO WORL".
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Joining Strings}
+  
+  \begin{itemize}
+    \item To join strings you will use the \lstinline{+} operator
+    \item You may also see some BASIC languages use the \lstinline{&} operator
+    \item When these are used, the result will be the two strings joined together with no extra spaces added.
+  \end{itemize}
+
+  \begin{lstlisting}[gobble=4]
+    A$ = "HELLO WORLD"
+    PRINT MID$(A$,4,2) + MID$(A$,10,1)
+  \end{lstlisting}
+  
+  This program will prompt for a string, then print it out without the first and last characters.  If you entered "HELLO WORLD" it would print "ELLO WORL".
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Comparing Strings}
+  
+  \begin{itemize}
+    \item To compare strings you can use the same operators as numbers: \lstinline{=}, , and \lstinline{<>}
+    \item The \lstinline{=} and \lstinline{<>} operators just check it the strings are equivalent or not.
+    \item The \lstinline{<}, \lstinline{>}, \lstinline{<=}, \lstinline{>=} operators compare on ASCII code value.
+  \end{itemize}
+
+  \begin{lstlisting}[gobble=4]
+    INPUT A$
+    INPUT B$
+    IF A$>B$ THEN PRINT "A > B" ELSE PRINT "B >= A"
+  \end{lstlisting}
+  
+  What do you think this will print if you input the following:
+  \begin{itemize}
+    \item "A" and "B"?
+    \item "A" and "ABC"?
+    \item "ABC" and "abc"?
+    \item "ABC" and "123"?
+    \item "100" and "2"?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Converting Strings and Numbers}
+  
+  \begin{itemize}
+    \item The \lstinline{VAL} function converts a string to a number.
+    \item The \lstinline{STR$} function will convert a string to a number.
+    \item Note the \lstinline{STR$} function always has a leading space for positive numbers.  Why do you think that might be?
+  \end{itemize}
+  
+  \begin{lstlisting}[gobble=4]
+    FOR I = -9 to 9
+      PRINT "The value is " + STR$(I)
+    NEXT I
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Miscellaneous}
+  \begin{itemize}
+    \item String variables and functions that return strings always end with a \lstinline{$}.
+    \item The website http://yohan.es/swbasic/ has a simple BASIC interpreter you can try the programs in.  It also has links to several other online BASIC interpreters.  You can try these out if you're not sure how something works.
+  \end{itemize}
+\end{frame}
+\end{document}
