@@ -1,0 +1,257 @@
+\documentclass[handout,fleqn, t]{beamer}
+
+\usepackage{multirow}
+
+\usepackage{pagenote}
+\makepagenote
+
+\usepackage{tikz}
+\usetikzlibrary{graphs}
+\usetikzlibrary{graphdrawing}
+\usetikzlibrary{positioning,shapes.geometric}
+\usetikzlibrary{arrows.meta}
+\usegdlibrary{layered,force,trees}
+
+\usepackage{caption}
+\captionsetup[figure]{name=}
+
+\usepackage{pgfpages}
+\pgfpagesuselayout{2 on 1}[letterpaper,border shrink=5mm]
+\pgfpageslogicalpageoptions{1}{border code=\pgfusepath{stroke}}
+\pgfpageslogicalpageoptions{2}{border code=\pgfusepath{stroke}}
+\pgfpageslogicalpageoptions{3}{border code=\pgfusepath{stroke}}
+\pgfpageslogicalpageoptions{4}{border code=\pgfusepath{stroke}}
+
+\title{Data Structures}
+\subtitle{GBW ACSL - Contest \#4}
+\author{Clayton O'Neill --- clayton@oneill.net}
+\date{2015-2016}
+
+\setbeamertemplate{footline}[frame number]
+
+\begin{document}
+
+\frame{\titlepage}
+
+\frame {
+  \frametitle{What Are Data Structures?}
+   
+  \begin{itemize}
+    \item Data structures are specific ways of organizing data and connecting data in a program.
+    \item Each data structure is designed to be used with certain algorithms and access patterns.
+    \item Many data structures are organized as a type of graph
+    \item We'll be covering stacks, queues, and binary search trees. \pagenote{Priority queues are also covered in the ACSL handout, but don't appear to be on the ACSL classroom division contests}
+  \end{itemize}
+}
+
+\frame {
+  \frametitle{What Is a Stack?}
+
+  A stack is a data structure that allows you to quickly add items to it, and quickly retrieve the most recently added item.  This functions much like a stack of books or a PEZ dispenser.  This is called "Last-In, First-Out" or LIFO order.
+  
+  \vspace{1em}
+  There are two basic operations that can be used on any stack: 
+  \begin{description}
+    \item[PUSH] This takes a single argument which is the value to put on the top of the stack
+    \item[POP] This removes an item and stores it in the variable given.
+  \end{description}
+  
+  \vspace{1em}
+  If you start with an empty stack, what will the following operations produce?
+  
+  \vspace{1em}
+  PUSH(A), PUSH(B), POP(X), PUSH(C) \pagenote{A,C}
+}
+
+\frame {
+  \frametitle{What Is a Queue?}
+  
+  A queue is a data structure that allows you to quickly add items to it, and quickly retrieve the oldest added item.  This functions much like a lunch line, where the person first in line gets their lunch first, and the last person gets theirs last..  This is called "First-In, First-Out" or FIFO order.
+  
+  \vspace{1em}
+  There are two operations that can be used on a stack: 
+  \begin{description}
+    \item[PUSH] This takes a single argument which is the value to put on the end (or tail) of the queue
+    \item[POP] This removes the oldest item from the beginning (or head) of the queue.
+  \end{description}
+  
+  \vspace{1em}
+  If you start with an empty queue, what will the following operations produce?
+  
+  \vspace{1em}
+  PUSH(A), PUSH(B), POP(X), PUSH(C) \pagenote{B,C} 
+}
+
+\frame {
+  \frametitle{What Is a Binary Search Tree?}
+
+  \vspace{1em}
+  \begin{itemize}
+    \item A binary search tree is a tree where each node has a value and may have a "left" and a "right" child node below it.  
+    \item The value of the left node must be less than or equal to the value of its parent.
+    \item The value of the right node must be greater than the value of its parent.
+  \end{itemize}
+  
+  \vspace{1em}
+  Below is a binary search tree of the first 7 characters of the alphabet.  
+  
+  \begin{figure}
+  \tikz [>=Stealth]
+  \graph [binary tree layout, nodes=draw] {
+    D -> { B -> { A, C }, F -> { E, G } }
+  };
+  \end{figure}
+}
+
+\frame {
+  \frametitle{Adding Nodes To a Binary Search Tree}
+  When adding nodes to a binary search tree, follow these steps starting at the root of the tree:
+  \begin{itemize}
+    \item If the item to be added is less than or equal to the current node look for a left child, otherwise look for a right child
+    \item If there is no child, then add the node there
+    \item Otherwise, move to the child and repeat
+  \end{itemize}
+  
+  \vspace{1em}
+  Below you'll see adding A, B, and C to a tree.
+  
+  \begin{columns}
+    \begin{column}{0.333\textwidth}
+      \begin{figure}
+      \tikz [>=Stealth]
+      \graph [binary tree layout, nodes=draw] {
+        A
+      };
+      \end{figure}
+    \end{column}
+    \begin{column}{0.333\textwidth}
+      \begin{figure}
+      \tikz [>=Stealth]
+       \graph [binary tree layout, nodes=draw] {
+         A -> B[second]
+       };
+      \end{figure}
+    \end{column}
+    \begin{column}{0.333\textwidth}
+      \begin{figure}
+      \tikz [>=Stealth]
+       \graph [binary tree layout, nodes=draw] {
+         A -> B[second] -> C[second]
+       };
+      \end{figure}
+    \end{column}
+  \end{columns}
+}
+
+\frame {
+  \frametitle{Order of Insertion Is Important}
+  When adding nodes to a Binary Search Tree, the order the nodes are added impacts the shape of the tree.  Below is examples of the trees formed by adding the letters as POTS, POST, SPOT, STOP, and TOPS.  Note: All of these words have the same letters but form different trees.
+
+  \begin{columns}
+    \begin{column}{0.2\textwidth}
+      \begin{figure}
+      \caption{POTS}
+      \tikz [>=Stealth]
+      \graph [binary tree layout, nodes=draw] {
+        P -> { O, T -> S }
+      };
+      \end{figure}
+    \end{column}
+    \begin{column}{0.2\textwidth}
+      \begin{figure}
+      \caption{POST}
+      \tikz [>=Stealth]
+       \graph [binary tree layout, nodes=draw] {
+         P -> { O, S -> T}
+      };
+      \end{figure}
+    \end{column}
+    \begin{column}{0.2\textwidth}
+      \begin{figure}
+      \caption{SPOT}
+      \tikz [>=Stealth]
+       \graph [binary tree layout, nodes=draw] {
+         S -> { P -> O, T }
+      };
+      \end{figure}
+    \end{column}
+    \begin{column}{0.2\textwidth}
+      \begin{figure}
+      \caption{STOP}
+      \tikz [>=Stealth]
+       \graph [binary tree layout, nodes=draw] {
+         S -> { O -> P, T }
+      };
+      \end{figure}
+    \end{column}
+    \begin{column}{0.2\textwidth}
+      \begin{figure}
+      \caption{TOPS}
+      \tikz [>=Stealth]
+       \graph [binary tree layout, nodes=draw] {
+         T -> O -> P[second] -> S[second]
+       };
+      \end{figure}
+    \end{column}
+  \end{columns}
+}
+
+\frame {
+  \frametitle{Binary Search Tree Vocabulary}
+   
+   \begin{itemize}
+     \item The \textit{root} of the tree is the single node at the top.
+     \item The \textit{depth} of the tree is the number of levels in the tree below the root.  A tree with a single node has a depth of zero.
+     \item An \textit{external node} is is a blank area where a new node could be inserted.
+   \end{itemize} 
+}
+
+\frame {
+  \frametitle{Binary Search Tree Traversal}
+  
+  Traversal of a tree is when each node is processed in a specific order from the root of the tree.  This is usually used when you want to apply a specific operation once to each node.  To traverse all nodes, you start at the root, process the left, right and current nodes as described below.
+  
+  \vspace{1em}
+  There are three types of traversal:
+  \begin{description}
+    \item[Inorder] Processes the left nodes, the current node, and right nodes.
+    \item[Preorder] Processes the current node, the left nodes, and the right nodes.
+    \item[Postorder] Processes the left nodes, the right nodes, and the current node.
+  \end{description}
+}
+  
+\frame {
+  \frametitle{Traversal example}
+  \begin{itemize}
+    \item Inorder would print POST
+    \item Preorder would print SOPT
+    \item Postorder would print POTS
+  \end{itemize}
+  
+  \begin{figure}
+  \tikz [>=Stealth]
+   \graph [binary tree layout, nodes=draw] {
+     S -> { O -> P, T }
+  };
+  \end{figure}
+}
+
+\frame {
+  \frametitle{Miscellaneous}
+  
+  \begin{itemize}
+    \item You should know how to predict the contents of a stack or queue given a list of PUSH and POP operations
+    \item You should know how to draw a binary search tree given a string
+    \item You should know how to calculate the depth of a binary search tree
+    \item You should know how to traverse a binary search tree with inorder, preorder or postorder.
+    \item Interactive Binary Search Tree visualization: https://www.cs.usfca.edu/~galles/visualization/BST.html
+    
+  \end{itemize}
+}
+
+\frame {
+  \frametitle{Footnotes}
+  \printnotes
+}
+
+\end{document}
